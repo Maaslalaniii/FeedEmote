@@ -17,6 +17,7 @@ export default class App extends Component {
         break
       case 'Recording':
         return <Recording routes={routes} navigator={navigator} />
+        break
     }
   }
 

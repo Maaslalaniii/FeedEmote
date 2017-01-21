@@ -45,6 +45,13 @@ export default styles = StyleSheet.create({
   },
   startCapture: {
     width: 70,
-    height: 70
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: 'white',
+    margin: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  startCaptureText: {
   }
 })
