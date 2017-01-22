@@ -34,7 +34,7 @@ export default class Recording extends Component {
             'Accept': 'application/json',
           },
           fields: {
-            'hello': 'world',
+            'userid': this.state.uid,
           },
           files: [
             {
@@ -86,6 +86,7 @@ export default class Recording extends Component {
             this.camera = cam;
           } }
           captureQuality={Camera.constants.CaptureQuality.high}
+          captureTarget={Camera.constants.CaptureTarget.temp}
           // orientation={Camera.constants.Orientation.landscapeLeft}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill} >
