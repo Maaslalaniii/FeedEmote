@@ -8,12 +8,19 @@ const FileUpload = require('NativeModules').FileUpload
 
 export default class Recording extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      running: false
+    }
+  }
+
   _takePicture() {
     this.camera.capture()
       .then((data) => {
         let obj = {
           uploadUrl: 'http://142.150.208.170/upload/',
-          method: 'POST', // default 'POST',support 'POST' and 'PUT' 
+          method: 'POST', // default 'POST',support 'POST' and 'PUT'
           headers: {
             'Accept': 'application/json',
           },
@@ -22,16 +29,44 @@ export default class Recording extends Component {
           },
           files: [
             {
-              filename: 'IMG.jpg', // require, file name 
+              filename: 'IMG.jpg', // require, file name
               filepath: data.path // require, file absoluete path
             }
           ]
         }
-
         FileUpload.upload(obj, function (err, result) {
           console.log('upload:', err, result);
         })
       })
+  }
+
+  _startButton() {
+    return (
+      <View style={styles.startCapture}>
+        <Text onPress={() => {
+          this.setState({running: true})
+          setInterval(() => {
+              this._takePicture()
+            }, 5000)
+          }} style={styles.startCaptureText}>
+          START
+        </Text>
+      </View>
+    )
+  }
+
+  _stopButton() {
+    return (
+      <View style={styles.stopCapture}>
+        <Text onPress={() => {
+            this.setState({running: false})
+            clearInterval()
+          }
+        }>
+          STOP
+        </Text>
+      </View>
+    )
   }
 
   render() {
@@ -42,16 +77,14 @@ export default class Recording extends Component {
             this.camera = cam;
           } }
           captureQuality={Camera.constants.CaptureQuality.high}
-          orientation={Camera.constants.Orientation.landscapeLeft}
+          // orientation={Camera.constants.Orientation.landscapeLeft}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill} >
-          <View style={styles.startCapture}>
-            <Text onPress={() => {
-              setInterval(() => {
-                this._takePicture()
-              }, 5000)
-            } } style={styles.startCaptureText}>START</Text>
-          </View>
+
+          {
+            this.state.running ? this._stopButton() : this._startButton()
+          }
+
         </Camera>
       </View>
     )

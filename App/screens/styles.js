@@ -15,9 +15,7 @@ export default styles = StyleSheet.create({
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
+    alignItems: 'center'
   },
   container: {
     flex: 1,
@@ -52,6 +50,19 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  stopCapture: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#EE7766',
+    margin: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   startCaptureText: {
+    padding: 9
+  },
+  stopCaptureText: {
+    padding: 9
   }
 })
