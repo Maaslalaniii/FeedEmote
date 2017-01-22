@@ -11,7 +11,10 @@ export default class Login extends Component {
     return (
       <View style={[styles.container, styles.center]}>
 
-        <TouchableOpacity onPress={() => {this.props.navigator.push(this.props.routes[1])}}>
+        <TouchableOpacity onPress={() => {
+          this.props.navigator.push(this.props.routes[1])}
+          
+        }>
           <Image style={styles.googleSignIn} source={require('../images/googleSignIn.png')} />
         </TouchableOpacity>
       

@@ -25,7 +25,7 @@ export default class App extends Component {
     return (
       <Navigator
         configureScene={(route) => {
-            return Navigator.SceneConfigs.PushFromRight
+            return Navigator.SceneConfigs.PushFromLeft
           }
         }
         initialRoute={routes[0]}

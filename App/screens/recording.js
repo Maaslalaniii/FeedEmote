@@ -5,13 +5,22 @@ import Camera from 'react-native-camera'
 // import fs from 'react-native-fs'
 const FileUpload = require('NativeModules').FileUpload
 
+let interval
 
 export default class Recording extends Component {
+  componentWillMount() {
+    fetch(`http://142.150.208.170/addpr?userid=${this.state.uid}`)
+      .then((response) => response.json())
+      .then((responseJSON) => console.log(responseJSON.pr_key))
+      .catch((error) => console.log(error))
+  }
 
   constructor(props) {
     super(props)
     this.state = {
-      running: false
+      running: false,
+      presentationId: '',
+      uid: 'NHHePgE5P4MTRUjcY8EmeNXvoys1'
     }
   }
 
@@ -44,11 +53,11 @@ export default class Recording extends Component {
     return (
       <View style={styles.startCapture}>
         <Text onPress={() => {
-          this.setState({running: true})
-          setInterval(() => {
-              this._takePicture()
-            }, 5000)
-          }} style={styles.startCaptureText}>
+          this.setState({ running: true })
+          interval = setInterval(() => {
+            this._takePicture()
+          }, 5000)
+        } } style={styles.startCaptureText}>
           START
         </Text>
       </View>
@@ -59,9 +68,9 @@ export default class Recording extends Component {
     return (
       <View style={styles.stopCapture}>
         <Text onPress={() => {
-            this.setState({running: false})
-            clearInterval()
-          }
+          this.setState({ running: false })
+          clearInterval(interval)
+        }
         }>
           STOP
         </Text>
