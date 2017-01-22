@@ -11,7 +11,7 @@ export default class Recording extends Component {
   componentWillMount() {
     fetch(`http://142.150.208.170/addpr?userid=${this.state.uid}`)
       .then((response) => response.json())
-      .then((responseJSON) => console.log(responseJSON.pr_key))
+      .then((responseJSON) => this.setState({ pr_id: responseJSON.pr_key }))
       .catch((error) => console.log(error))
   }
 
@@ -20,7 +20,8 @@ export default class Recording extends Component {
     this.state = {
       running: false,
       presentationId: '',
-      uid: 'NHHePgE5P4MTRUjcY8EmeNXvoys1'
+      uid: 'NHHePgE5P4MTRUjcY8EmeNXvoys1',
+      pr_id: ''
     }
   }
 
@@ -35,6 +36,7 @@ export default class Recording extends Component {
           },
           fields: {
             'userid': this.state.uid,
+            'pr_id': this.state.pr_id
           },
           files: [
             {
@@ -70,6 +72,7 @@ export default class Recording extends Component {
         <Text onPress={() => {
           this.setState({ running: false })
           clearInterval(interval)
+          fetch(`http://142.150.208.170/endpr?userid=${this.state.uid}`)
         }
         }>
           STOP
