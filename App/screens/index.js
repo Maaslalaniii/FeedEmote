@@ -6,7 +6,7 @@ import Recording from './recording'
 
 const routes = [
   { title: 'Login', index: 0 },
-  { title: 'Recording', index: 1}
+  { title: 'Recording', index: 1 }
 ]
 
 export default class App extends Component {
@@ -24,14 +24,11 @@ export default class App extends Component {
   render() {
     return (
       <Navigator
-        configureScene={(route) => {
-            return Navigator.SceneConfigs.PushFromLeft
-          }
-        }
+        configureScene={() => Navigator.SceneConfigs.PushFromLeft}
         initialRoute={routes[0]}
         initialRouteStack={routes}
         renderScene={this._renderScene.bind(this)}
-      />
+        />
     )
   }
 }

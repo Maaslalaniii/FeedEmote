@@ -30,7 +30,7 @@ export default class Recording extends Component {
       .then((data) => {
         let obj = {
           uploadUrl: 'http://142.150.208.170/upload/',
-          method: 'POST', // default 'POST',support 'POST' and 'PUT'
+          method: 'POST',
           headers: {
             'Accept': 'application/json',
           },
@@ -40,8 +40,8 @@ export default class Recording extends Component {
           },
           files: [
             {
-              filename: 'IMG.jpg', // require, file name
-              filepath: data.path // require, file absoluete path
+              filename: 'IMG.jpg',
+              filepath: data.path
             }
           ]
         }
@@ -73,6 +73,9 @@ export default class Recording extends Component {
           this.setState({ running: false })
           clearInterval(interval)
           fetch(`http://142.150.208.170/endpr?userid=${this.state.uid}`)
+            .then((data) => {
+              this.props.navigator.immediatelyResetRouteStack([this.props.routes[0]])
+            })
         }
         }>
           STOP
